@@ -1,0 +1,29 @@
+#! /bin/sh
+
+usage() {
+  printf "usage:\n\t%s <input-file>\n" "$0"
+}
+
+main() {
+  if [ "$#" -eq 0 ]; then
+    usage
+    exit
+  fi
+
+  input="$1"
+
+  if [ ! -f "$input" ]; then
+    printf "'$input' does not exist.\n"
+    exit
+  fi
+
+  benefitplans=$(jq '[ .[]."Benefit Plans".[] | { name: ."Benefit Plan Name", id: "Benefit Plan ID" } ] | unique' "$input")
+  gender=$(jq '[ .[]."Members Gender" ] | unique' "$input")
+  marital=$(jq '[ .[]."Members Marital Status" ] | unique' "$input")
+  coverage=$(jq '[ .[]."Benefit Plans".[]."Coverage Name" ] | unique' "$input")
+  relationship=$(jq '[ .[]."Relationship Code" ] | unique' "$input")
+
+  printf "Benefit Plans:\n%s\nGenders:\n%s\nMarital Status:\n%s\nCoverage Names:\n%s\nRelationship Codes:\n%s\n" "$benefitplans" "$gender" "$marital" "$coverage" "$relationship"
+}
+
+main "$@"
