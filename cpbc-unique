@@ -17,7 +17,7 @@ main() {
     exit
   fi
 
-  benefitplans=$(jq '[ .[]."Benefit Plans".[] | { name: ."Benefit Plan Name", id: "Benefit Plan ID" } ] | unique' "$input")
+  benefitplans=$(jq '[ .[]."Benefit Plans".[] | { name: ."Benefit Plan Name", id: ."Benefit Plan ID" } ] | unique' "$input")
   gender=$(jq '[ .[]."Members Gender" ] | unique' "$input")
   marital=$(jq '[ .[]."Members Marital Status" ] | unique' "$input")
   coverage=$(jq '[ .[]."Benefit Plans".[]."Coverage Name" ] | unique' "$input")
