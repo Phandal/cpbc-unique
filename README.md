@@ -3,8 +3,7 @@ Used to get all the unique values out the extracted-data. This is very useful wh
 template with mappings for the first time.
 
 ## Usage
-This will show all the unique Benefit Plans, Member Genders, Marital Statuses, Coverage Names, and
-Relationship Codes
 ```shell
-cpbc-unique <input-file>
+# -f means treat as financial feed; -b means treat as benefit feed;
+cpbc-unique [-fb] <input-file>
 ```
